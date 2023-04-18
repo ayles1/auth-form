@@ -1,0 +1,8 @@
+@import "src/styles/mixins";
+
+.form {
+  .container {
+
+    @include flex-center(column);
+  }
+}

@@ -1,0 +1,40 @@
+@import "src/styles/mixins";
+@import 'src/styles/vars';
+
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  .label{
+    position: absolute;
+    z-index: 10;
+    left: 20px;
+    top:-6px;
+    padding: 0 3px;
+    background: white;
+    &.error{
+      color:$error;
+    }
+  }
+
+  .input {
+    padding:10px;
+    font-size: 15px;
+    border: 2px solid $light ;
+    border-radius: 10px;
+    &.error{
+      border: 2px solid $error;
+    }
+  }
+  .mask{
+    position: absolute;
+    right: 10%;
+    top:30%;
+  }
+  .error_block {
+    margin: 5px 0 0 15px;
+    color: $error;
+  }
+}
