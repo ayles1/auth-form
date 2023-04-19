@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Home from '@/pages/Home';
 import LoginPage from '@/pages/LoginPage';
+import RegisterPage from '@/pages/RegisterPage';
 import UploadPage from '@/pages/UploadPage';
 
 import ErrorNotFound from '@/components/error/ErrorNotFound';
@@ -26,7 +27,7 @@ function App() {
                             </PrivatePage>
                         }
                     />
-                    <Route path={AppRoutes.signUp} element={<LoginPage />} />
+                    <Route path={AppRoutes.register} element={<RegisterPage />} />
                     <Route path={AppRoutes.login} element={<LoginPage />} />
                     <Route path={AppRoutes.upload} element={<UploadPage />} />
                     <Route path={AppRoutes.error} element={<ErrorNotFound />} />

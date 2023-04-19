@@ -1,18 +1,42 @@
 @import "src/styles/mixins";
 
-.modal{
+.modal {
   position: fixed;
   inset: 0;
   @include flex-center;
-  height:100vh;
-  width:100vw;
-  background: rgba(0,0,0,0.3);
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.3);
 
 
-  .content{
-    width:50vw;
+  .content {
+    width: 50vw;
     padding: 20px;
     background: white;
     border-radius: 12px;
+    transition: all 0.5s ease-in-out;
+    opacity: 0;
+    transform: rotateX(90deg) translate3d(0, -100%, 0);
+    animation: modal-rotate-slide 0.5s cubic-bezier(0.36, 0.45, 0.63, 0.53) both;
+
+
+    &.open {
+      .content {
+        opacity: 1;
+        transform: none;
+      }
+    }
   }
 }
+
+@keyframes modal-rotate-slide {
+  from {
+    opacity: 0;
+    transform: rotateX(90deg) translate3d(0, -100%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+

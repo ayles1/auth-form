@@ -1,6 +1,6 @@
 export enum AppRoutes {
     index = '/',
-    signUp = '/signUp',
+    register = '/register',
     login = '/login',
     upload = '/upload',
     error = '*'

@@ -30,36 +30,42 @@ const Input: FC<IInput> = React.forwardRef<HTMLInputElement, IInput>((props, ref
 
     return (
         <>
-            <div className={styles.container}>
-                {!!label && (
-                    <label
-                        className={cn(styles.label, {
+            <div className={cn(className, styles.container)}>
+                <div className={styles.wrapper}>
+                    {!!label && (
+                        <label
+                            className={cn(styles.label, {
+                                [styles['error']]: hasError
+                            })}
+                            htmlFor={id}
+                        >
+                            {label}
+                        </label>
+                    )}
+                    <input
+                        className={cn(styles.input, {
                             [styles['error']]: hasError
                         })}
-                        htmlFor={id}
-                    >
-                        {label}
-                    </label>
-                )}
-                <input
-                    className={cn(className, styles.input, {
-                        [styles['error']]: hasError
-                    })}
-                    ref={ref}
-                    id={id}
-                    disabled={isDisabled}
-                    name={name}
-                    type={!isPasswordInput ? type : isPasswordShown ? 'text' : 'password'}
-                    placeholder={placeholder}
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    {...rest}
-                />
-                {type === 'password' && (
-                    <button className={styles.mask} onClick={onPasswordVisibilityToggle}>
-                        {isPasswordShown ? <BsEye size={'18px'} /> : <BsEyeSlash size={'18px'} />}
-                    </button>
-                )}
+                        ref={ref}
+                        id={id}
+                        disabled={isDisabled}
+                        name={name}
+                        type={!isPasswordInput ? type : isPasswordShown ? 'text' : 'password'}
+                        placeholder={placeholder}
+                        onChange={onChange}
+                        onBlur={onBlur}
+                        {...rest}
+                    />
+                    {type === 'password' && (
+                        <button className={styles.mask} onClick={onPasswordVisibilityToggle}>
+                            {isPasswordShown ? (
+                                <BsEye size={'18px'} />
+                            ) : (
+                                <BsEyeSlash size={'18px'} />
+                            )}
+                        </button>
+                    )}
+                </div>
                 {!!error && <div className={styles.error_block}>{error}</div>}
             </div>
         </>
