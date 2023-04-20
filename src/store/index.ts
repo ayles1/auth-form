@@ -1,10 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
+import popupReducer from './slices/popupSlice';
 import userReducer from './slices/userSlice';
 
-
 const rootReducer = combineReducers({
-    user: userReducer
+    user: userReducer,
+    popup: popupReducer
 });
 
 const store = configureStore({

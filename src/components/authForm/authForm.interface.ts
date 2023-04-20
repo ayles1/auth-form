@@ -1,10 +1,12 @@
 import { object, string } from 'yup';
 
+import { IAuthData } from '@/services/auth/auth.helper';
+
 export interface IAuthForm {
-    type: 'login' | 'register';
+    authFn: (email: string, password: string) => Promise<IAuthData>;
 }
 
-export interface Inputs {
+export interface InputFields {
     email: string;
     password: string;
 }

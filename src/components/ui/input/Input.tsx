@@ -5,7 +5,6 @@ import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import { IInput } from './input.interface';
 import styles from './input.module.scss';
 
-
 const Input: FC<IInput> = React.forwardRef<HTMLInputElement, IInput>((props, ref) => {
     const {
         className = '',

@@ -16,8 +16,9 @@ export class AuthService {
     async login(dto: AuthDto) {
         const user = await this.validateUser(dto)
         return {
-            user: this.returnUserFields(user),
-            accessToken: await this.issueAccessToken(user._id.toString())
+            email:user.email,
+            _id:user._id,
+            token: await this.issueAccessToken(user._id.toString())
         }
     }
 
@@ -35,8 +36,9 @@ export class AuthService {
         const user = await newUser.save()
 
         return {
-            user: this.returnUserFields(user),
-            accessToken: await this.issueAccessToken(user._id.toString())
+            email: user.email,
+            _id:user._id,
+            token: await this.issueAccessToken(user._id.toString())
         }
     }
 
@@ -58,10 +60,5 @@ export class AuthService {
         })
     }
 
-    returnUserFields(user: UserModel) {
-        return {
-            _id: user._id,
-            email: user.email
-        }
-    }
+
 }

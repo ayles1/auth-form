@@ -4,9 +4,8 @@ import React, { FC } from 'react';
 import { IButton } from './button.interface';
 import styles from './button.module.scss';
 
-
 const Button: FC<IButton> = (props) => {
-    const { className, children, variant, onClick } = props;
+    const { className, children, variant = 'contained', onClick } = props;
     return (
         <button
             className={cn(className, styles.button, {

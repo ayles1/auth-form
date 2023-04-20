@@ -3,7 +3,6 @@
 .form {
   .container {
     @include flex-center(column);
-    gap:30px;
     .input{
       max-width: 200px;
     }

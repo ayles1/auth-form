@@ -8,11 +8,11 @@ import UploadPage from '@/pages/UploadPage';
 
 import ErrorNotFound from '@/components/error/ErrorNotFound';
 import Layout from '@/components/layout/Layout';
+import AppPage from '@/components/page/AppPage';
 import PrivatePage from '@/components/private/PrivatePage';
 
 import '@/styles/global.scss';
 import '@/styles/reset.scss';
-
 
 function App() {
     return (
@@ -23,14 +23,39 @@ function App() {
                         path={AppRoutes.index}
                         element={
                             <PrivatePage>
-                                <Home />
+                                <AppPage title={'Home page'}>
+                                    <Home />
+                                </AppPage>
                             </PrivatePage>
                         }
                     />
-                    <Route path={AppRoutes.register} element={<RegisterPage />} />
-                    <Route path={AppRoutes.login} element={<LoginPage />} />
+
+                    <Route
+                        path={AppRoutes.register}
+                        element={
+                            <AppPage title={'Sign up'}>
+                                <RegisterPage />
+                            </AppPage>
+                        }
+                    />
+
+                    <Route
+                        path={AppRoutes.login}
+                        element={
+                            <AppPage title={'Login'}>
+                                <LoginPage />
+                            </AppPage>
+                        }
+                    />
                     <Route path={AppRoutes.upload} element={<UploadPage />} />
-                    <Route path={AppRoutes.error} element={<ErrorNotFound />} />
+                    <Route
+                        path={AppRoutes.error}
+                        element={
+                            <AppPage title={'Error'}>
+                                <ErrorNotFound />
+                            </AppPage>
+                        }
+                    />
                 </Route>
             </Routes>
         </BrowserRouter>

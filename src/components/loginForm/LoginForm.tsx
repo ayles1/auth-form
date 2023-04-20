@@ -2,11 +2,12 @@ import React, { FC } from 'react';
 
 import AuthForm from '@/components/authForm/AuthForm';
 
+import { AuthService } from '@/services/auth/auth.service';
 
 const LoginForm: FC<any> = () => {
     return (
         <>
-            <AuthForm type='login' />
+            <AuthForm authFn={AuthService.login} />
         </>
     );
 };

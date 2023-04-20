@@ -6,6 +6,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  min-height: 80px;
+  min-width: 200px;
 
   .wrapper {
     position: relative;

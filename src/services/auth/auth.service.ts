@@ -4,7 +4,7 @@ import { IAuthData, removeTokenFromStorage, saveToStorage } from '@/services/aut
 
 export const AuthService = {
     async login(email: string, password: string) {
-        const response = await axios.post<IAuthData>('/auth/login', {
+        const response = await axios.post<IAuthData>('api/auth/login', {
             email,
             password
         });
@@ -14,7 +14,7 @@ export const AuthService = {
         return response.data;
     },
     async register(email: string, password: string) {
-        const response = await axios.post<IAuthData>('/auth/register', {
+        const response = await axios.post<IAuthData>('/api/auth/register', {
             email,
             password
         });
