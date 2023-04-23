@@ -1,0 +1,10 @@
+@import "src/styles/mixins";
+
+.form {
+  .container {
+    @include flex-center(column);
+    .input{
+      max-width: 200px;
+    }
+  }
+}
