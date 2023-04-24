@@ -1,9 +1,10 @@
+@import 'src/styles/vars';
 .footer{
 
     position:fixed;
     bottom: 0;
     width:100%;
     height:100px;
-    background:black;
+    background:$light;
 
 }

@@ -1,9 +1,9 @@
 import cn from 'classnames';
-import React, {FC, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {createPortal} from 'react-dom';
 import {AiOutlineClose} from 'react-icons/ai';
 
-import {popupActions} from '@/store/slices/popupSlice';
+import {popupActions} from '@/store/slices/popup/popup.slice';
 
 import useAppDispatch from '@/hooks/redux/useAppDispatch';
 import useTypedSelector from '@/hooks/redux/useTypedSelector';
@@ -11,12 +11,13 @@ import useTypedSelector from '@/hooks/redux/useTypedSelector';
 import IPopup from './popup.interface';
 import styles from './popup.module.scss';
 
-const Popup: FC<IPopup> = (props) => {
+const Popup = <T extends 'success' | 'error' | 'warn'> (props:IPopup<T>) => {
     const {
         autoCloseTime = 4000,
         position,
         type = 'success',
         variant = 'contained',
+        statusCode,
         message
     } = props;
     const { isOpen } = useTypedSelector((state) => state.popup);
@@ -28,7 +29,6 @@ const Popup: FC<IPopup> = (props) => {
             toggleOpen(false);
         }
     }, [loadingPercentage]);
-    console.log('hey');
     useEffect(() => {
         if (autoCloseTime === false) {
             return;
@@ -61,6 +61,7 @@ const Popup: FC<IPopup> = (props) => {
                               <div className={styles.backdrop}>
                                   <AiOutlineClose size={'20px'} onClick={() => toggleOpen(false)} />
                               </div>
+                              <div>{statusCode}</div>
                           </div>
                           <div className={styles.top} style={topStyle} />
                           <div className={styles.right} style={rightStyle} />

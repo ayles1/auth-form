@@ -13,18 +13,20 @@ import PrivatePage from '@/components/private/PrivatePage';
 
 import '@/styles/global.scss';
 import '@/styles/reset.scss';
+import ActivationPage from "@/pages/ActivationPage";
+
 
 function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path={AppRoutes.index} element={<Layout />}>
+                <Route path={AppRoutes.index} element={<Layout/>}>
                     <Route
                         path={AppRoutes.index}
                         element={
                             <PrivatePage>
                                 <AppPage title={'Home page'}>
-                                    <Home />
+                                    <Home/>
                                 </AppPage>
                             </PrivatePage>
                         }
@@ -34,25 +36,32 @@ function App() {
                         path={AppRoutes.register}
                         element={
                             <AppPage title={'Sign up'}>
-                                <RegisterPage />
+                                <RegisterPage/>
                             </AppPage>
                         }
-                    />
+                    >
+                        <Route path={AppRoutes.activate}
+                               element={
+                                   <AppPage title={'Account activation'}>
+                                       <ActivationPage/>
+                                   </AppPage>
+                               }/>
+                    </Route>
 
                     <Route
                         path={AppRoutes.login}
                         element={
                             <AppPage title={'Login'}>
-                                <LoginPage />
+                                <LoginPage/>
                             </AppPage>
                         }
                     />
-                    <Route path={AppRoutes.upload} element={<UploadPage />} />
+                    <Route path={AppRoutes.upload} element={<UploadPage/>}/>
                     <Route
                         path={AppRoutes.error}
                         element={
                             <AppPage title={'Error'}>
-                                <ErrorNotFound />
+                                <ErrorNotFound/>
                             </AppPage>
                         }
                     />

@@ -1,10 +1,11 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-export interface IPopup {
+export interface IPopup  {
     isOpen: boolean;
     message: string;
     variant?: 'contained' | 'outlined';
-    type: 'success' | 'warn' | 'error';
+    type: 'error' | 'success' | 'warn';
+    statusCode:number | undefined;
     position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 }
 
@@ -13,6 +14,7 @@ const initialState: IPopup = {
     variant: undefined,
     message: '',
     type: 'success',
+    statusCode:undefined,
     position: 'top-left'
 };
 

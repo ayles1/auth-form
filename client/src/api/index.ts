@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const axiosWithAuth = axios.create({
-    withCredentials: true
+    withCredentials: true,
 });
 
 axiosWithAuth.interceptors.request.use((config) => {
@@ -12,3 +12,7 @@ axiosWithAuth.interceptors.request.use((config) => {
 export const axiosClassic = axios.create({
     withCredentials: true
 })
+
+async function fn (){
+
+}

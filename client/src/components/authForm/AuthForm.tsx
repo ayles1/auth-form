@@ -1,6 +1,5 @@
-import {AppRoutes} from '@/types';
 import {yupResolver} from '@hookform/resolvers/yup';
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import {useNavigate} from 'react-router-dom';
 
@@ -9,20 +8,18 @@ import FormContent from '@/components/ui/form/FormContent';
 import Input from '@/components/ui/input/Input';
 
 import {popupActions} from '@/store/slices/popup/popup.slice';
-import {userActions} from '@/store/slices/user/userSlice';
 
 import useAppDispatch from '@/hooks/redux/useAppDispatch';
 
 import {IAuthForm, InputFields, schema} from './authForm.interface';
 import styles from './authForm.module.scss';
+import {useRegisterMutation} from "@/api/auth/authApi";
 
-const AuthForm: FC<IAuthForm> = ({ authFn }) => {
+const AuthForm: FC<IAuthForm> = () => {
     const [isLoading, setIsLoading] = useState(false);
-
     const navigate = useNavigate();
     const { setPopup } = useAppDispatch(popupActions);
-    const {  } = useAppDispatch(userActions);
-
+    const [registerUser,result] = useRegisterMutation()
     const {
         register,
         handleSubmit,
@@ -35,24 +32,41 @@ const AuthForm: FC<IAuthForm> = ({ authFn }) => {
         resolver: yupResolver(schema)
     });
 
+    useEffect(() => {
+        if(result.isError){
+            setPopup({
+                message: 'hello',
+                type: 'warn' ,
+                statusCode:200,
+                position: 'top-left',
+            })
+        }
+    }, [result.isError]);
+
+    console.log(result)
+
     const onSubmit: SubmitHandler<InputFields> = ({ email, password }) => {
         setIsLoading(true);
-        authFn(email, password)
-            .then((response) => {
-                // setUser(response);
-                navigate(AppRoutes.index);
+            registerUser({email,password}).then((response)=>{
+                // setUser(response)
+                // navigate(AppRoutes.index)
             })
-            .catch((error) => {
-                setPopup({
-                    message: error.response.data.message,
-                    type: 'error',
-                    position: 'top-left'
-                });
-                reset();
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
+        // authFn(email, password)
+        //     .then((response) => {
+        //         // setUser(response);
+        //         navigate(AppRoutes.index);
+        //     })
+        //     .catch((error) => {
+        //         setPopup({
+        //             message: error.response.data.message,
+        //             type: 'error',
+        //             position: 'top-left'
+        //         });
+        //         reset();
+        //     })
+        //     .finally(() => {
+        //         setIsLoading(false);
+        //     });
     };
     return (
         <>

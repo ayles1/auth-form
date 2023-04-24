@@ -1,9 +1,7 @@
 import {object, string} from 'yup';
 
-import {IAuthData} from '@/services/auth/auth.helper';
-
 export interface IAuthForm {
-    authFn: (email: string, password: string) => Promise<IAuthData>;
+    // authFn: (email: string, password: string) => Promise<IAuthData>;
 }
 
 export interface InputFields {

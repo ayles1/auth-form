@@ -9,12 +9,13 @@ import IPageTitle from './AppPage.interface';
 
 const AppPage: FC<IPageTitle> = ({ title, children }) => {
     useDocumentTitle(title);
-    const { message, type, isOpen, position, variant } = useTypedSelector((state) => state.popup);
+    const { message, type, isOpen, position, variant,statusCode } = useTypedSelector((state) => state.popup);
     return (
         <>
             {isOpen && (
-                <Popup
+                <Popup<typeof type>
                     type={type}
+                    statusCode={statusCode}
                     variant={variant}
                     autoCloseTime={false}
                     message={message}
