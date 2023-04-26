@@ -27,7 +27,7 @@ const userSlice = createSlice({
             return { ...state, isActivated: true };
         },
         removeUser(state) {
-            return state;
+            return initialState;
         }
     }
 });

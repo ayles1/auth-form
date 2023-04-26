@@ -18,9 +18,10 @@ const ActivationPage: FC<any> = () => {
         if (!isValid) {
             navigate(AppRoutes.index);
         }
-        // if(isAtActivatePage && isActivated){
-        //     navigate(AppRoutes.index)
-        // }
+        console.log(isAtActivatePage, isActivated);
+        if (isAtActivatePage && isActivated) {
+            navigate(AppRoutes.index);
+        }
     }, [isValid]);
 
     return (

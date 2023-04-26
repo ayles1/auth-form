@@ -37,11 +37,9 @@ const AuthForm: FC<IAuthForm> = ({ type, useMutationHook }) => {
 
     useEffect(() => {
         if (result.isError) {
-            console.log(result.error);
             if ('data' in result.error) {
-                // @ts-ignore
                 setPopup({
-                    message: result.error.data.message,
+                    message: (result.error.data as any).message,
                     type: 'error',
                     statusCode: result.error.status,
                     position: 'top-left'

@@ -1,8 +1,8 @@
 import cn from 'classnames';
-import React, {FC, useState} from 'react';
-import {BsEye, BsEyeSlash} from 'react-icons/bs';
+import React, { FC, useState } from 'react';
+import { BsEye, BsEyeSlash } from 'react-icons/all';
 
-import {IInput} from './input.interface';
+import { IInput } from './input.interface';
 import styles from './input.module.scss';
 
 const Input: FC<IInput> = React.forwardRef<HTMLInputElement, IInput>((props, ref) => {
@@ -56,7 +56,11 @@ const Input: FC<IInput> = React.forwardRef<HTMLInputElement, IInput>((props, ref
                         {...rest}
                     />
                     {type === 'password' && (
-                        <button className={styles.mask} onClick={onPasswordVisibilityToggle}>
+                        <button
+                            className={styles.mask}
+                            type={'button'}
+                            onClick={onPasswordVisibilityToggle}
+                        >
                             {isPasswordShown ? (
                                 <BsEye size={'18px'} />
                             ) : (
@@ -65,7 +69,7 @@ const Input: FC<IInput> = React.forwardRef<HTMLInputElement, IInput>((props, ref
                         </button>
                     )}
                 </div>
-                {!!error && <div className={styles.error_block}>{error}</div>}
+                {!!error && <div className={styles['error_block']}>{error}</div>}
             </div>
         </>
     );

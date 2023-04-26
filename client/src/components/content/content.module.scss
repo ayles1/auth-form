@@ -1,0 +1,7 @@
+@import "src/styles/mixins";
+
+.container {
+  position: absolute;
+  inset: 0;
+  @include flex-center;
+}

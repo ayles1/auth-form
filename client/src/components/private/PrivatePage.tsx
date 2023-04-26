@@ -14,7 +14,7 @@ const PrivatePage: FC<PropsWithChildren> = ({ children }) => {
             navigate(AppRoutes.login);
         }
     }, [isAuth]);
-    return isAuth && <>{children}</>;
+    return <>{isAuth && children}</>;
 };
 
 export default PrivatePage;
