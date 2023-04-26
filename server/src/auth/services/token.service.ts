@@ -60,7 +60,7 @@ export class TokenService {
     }
      validateRefreshToken(token:string):UserModel{
         try {
-            const userData = this.jwtService.verify(token,this.configService.get('JWT_REFRESH_SECRET'))
+         const userData = this.jwtService.verify(token, {secret: this.configService.get('JWT_REFRESH_SECRET')})
             return userData
         }
         catch(e){

@@ -1,25 +1,28 @@
-import {yupResolver} from '@hookform/resolvers/yup';
-import React, {FC, useEffect, useState} from 'react';
-import {SubmitHandler, useForm} from 'react-hook-form';
-import {useNavigate} from 'react-router-dom';
+import { AppRoutes } from '@/types';
+import { yupResolver } from '@hookform/resolvers/yup';
+import React, { FC, useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import Button from '@/components/ui/button/Button';
 import FormContent from '@/components/ui/form/FormContent';
 import Input from '@/components/ui/input/Input';
 
-import {popupActions} from '@/store/slices/popup/popup.slice';
+import { popupActions } from '@/store/slices/popup/popup.slice';
+import { userActions } from '@/store/slices/user/user.slice';
 
 import useAppDispatch from '@/hooks/redux/useAppDispatch';
 
-import {IAuthForm, InputFields, schema} from './authForm.interface';
+import { IAuthForm, InputFields, schema } from './authForm.interface';
 import styles from './authForm.module.scss';
-import {useRegisterMutation} from "@/api/auth/authApi";
 
-const AuthForm: FC<IAuthForm> = () => {
-    const [isLoading, setIsLoading] = useState(false);
+const AuthForm: FC<IAuthForm> = ({ type, useMutationHook }) => {
     const navigate = useNavigate();
     const { setPopup } = useAppDispatch(popupActions);
-    const [registerUser,result] = useRegisterMutation()
+    const { setUser } = useAppDispatch(userActions);
+
+    const [mutate, result] = useMutationHook();
+    const isLogin = type === 'login';
     const {
         register,
         handleSubmit,
@@ -33,45 +36,51 @@ const AuthForm: FC<IAuthForm> = () => {
     });
 
     useEffect(() => {
-        if(result.isError){
-            setPopup({
-                message: 'hello',
-                type: 'warn' ,
-                statusCode:200,
-                position: 'top-left',
-            })
+        if (result.isError) {
+            console.log(result.error);
+            if ('data' in result.error) {
+                // @ts-ignore
+                setPopup({
+                    message: result.error.data.message,
+                    type: 'error',
+                    statusCode: result.error.status,
+                    position: 'top-left'
+                });
+            }
         }
     }, [result.isError]);
 
-    console.log(result)
-
-    const onSubmit: SubmitHandler<InputFields> = ({ email, password }) => {
-        setIsLoading(true);
-            registerUser({email,password}).then((response)=>{
-                // setUser(response)
-                // navigate(AppRoutes.index)
-            })
-        // authFn(email, password)
-        //     .then((response) => {
-        //         // setUser(response);
-        //         navigate(AppRoutes.index);
-        //     })
-        //     .catch((error) => {
-        //         setPopup({
-        //             message: error.response.data.message,
-        //             type: 'error',
-        //             position: 'top-left'
-        //         });
-        //         reset();
-        //     })
-        //     .finally(() => {
-        //         setIsLoading(false);
-        //     });
+    const onSubmit: SubmitHandler<InputFields> = async ({ email, password }) => {
+        if (!isLogin) {
+            const response = await mutate({ email, password });
+            if ('data' in response) {
+                setUser({
+                    isAuth: true,
+                    email: response.data.user.email,
+                    id: response.data.user.id,
+                    isActivated: response.data.user.isActivated
+                });
+                navigate(AppRoutes.activate);
+            }
+        }
+        if (isLogin) {
+            const response = await mutate({ email, password });
+            if ('data' in response) {
+                setUser({
+                    isAuth: true,
+                    email: response.data.user.email,
+                    id: response.data.user.id,
+                    isActivated: response.data.user.isActivated
+                });
+                navigate(AppRoutes.index);
+            }
+        }
     };
     return (
         <>
             <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
                 <FormContent className={styles.container}>
+                    <h1 className={styles['form-title']}>{isLogin ? 'Login' : 'Sign up'}</h1>
                     <Input
                         type={'email'}
                         label={'Email'}
@@ -86,8 +95,10 @@ const AuthForm: FC<IAuthForm> = () => {
                         {...register('password')}
                         className={styles.input}
                     />
-                    {isLoading && <div>Loading...</div>}
-                    <Button variant={'contained'}>Sign up</Button>
+                    {result.isLoading && <div>Loading...</div>}
+                    <Button className={styles.button} variant={'contained'}>
+                        {isLogin ? 'Login' : 'Sign up'}
+                    </Button>
                 </FormContent>
             </form>
         </>

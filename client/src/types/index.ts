@@ -1,7 +1,8 @@
 export enum AppRoutes {
     index = '/',
     register = '/register',
-    activate = '/register/activate/:id',
+    activate = '/activate',
+    activateRequest = '/activate/:id',
     login = '/login',
     upload = '/upload',
     error = '*'

@@ -1,30 +1,23 @@
-import React, {FC} from 'react';
-
-import Popup from '@/components/ui/popup/Popup';
+import React, { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import useTypedSelector from '@/hooks/redux/useTypedSelector';
 import useDocumentTitle from '@/hooks/useDocumentTitle';
 
 import IPageTitle from './AppPage.interface';
 
-const AppPage: FC<IPageTitle> = ({ title, children }) => {
+const AppPage: FC<IPageTitle> = ({ title, shouldRedirectIfAuth = false, children }) => {
+    const { isAuth } = useTypedSelector((state) => state.user);
+    const navigate = useNavigate();
+
     useDocumentTitle(title);
-    const { message, type, isOpen, position, variant,statusCode } = useTypedSelector((state) => state.popup);
-    return (
-        <>
-            {isOpen && (
-                <Popup<typeof type>
-                    type={type}
-                    statusCode={statusCode}
-                    variant={variant}
-                    autoCloseTime={false}
-                    message={message}
-                    position={position}
-                />
-            )}
-            {children}
-        </>
-    );
+
+    // useEffect(()=>{
+    //     if(shouldRedirectIfAuth && isAuth) {
+    //         navigate(AppRoutes.index)
+    //     }
+    // },[isAuth])
+    return <>{children}</>;
 };
 
 export default AppPage;

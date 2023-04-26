@@ -1,15 +1,16 @@
 import cn from 'classnames';
-import React, {useEffect, useState} from 'react';
-import {createPortal} from 'react-dom';
-import {AiOutlineClose} from 'react-icons/ai';
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { AiOutlineClose } from 'react-icons/ai';
 
-import {popupActions} from '@/store/slices/popup/popup.slice';
+import { popupActions } from '@/store/slices/popup/popup.slice';
 
 import useAppDispatch from '@/hooks/redux/useAppDispatch';
 import useTypedSelector from '@/hooks/redux/useTypedSelector';
 
 import IPopup from './popup.interface';
 import styles from './popup.module.scss';
+
 
 const Popup = <T extends 'success' | 'error' | 'warn'> (props:IPopup<T>) => {
     const {
@@ -57,13 +58,15 @@ const Popup = <T extends 'success' | 'error' | 'warn'> (props:IPopup<T>) => {
                   >
                       <div className={styles.wrapper}>
                           <div className={styles.container}>
-                              <div className={styles.message}>{message}</div>
-                              <div className={styles.backdrop}>
-                                  <AiOutlineClose size={'20px'} onClick={() => toggleOpen(false)} />
+                              <div>
+                                  <div className={styles.status}>Status - {statusCode}</div>
+                                  <div className={styles.message}>{message}</div>
                               </div>
-                              <div>{statusCode}</div>
+                              <div className={styles.backdrop}>
+                                  <AiOutlineClose size={'20px'} onClick={() => toggleOpen(false)}/>
+                              </div>
                           </div>
-                          <div className={styles.top} style={topStyle} />
+                          <div className={styles.top} style={topStyle}/>
                           <div className={styles.right} style={rightStyle} />
                           <div className={styles.bottom} style={bottomStyle} />
                           <div className={styles.left} style={leftStyle} />

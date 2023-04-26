@@ -1,20 +1,34 @@
 import cn from 'classnames';
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import ReactDOM from 'react-dom';
-import {AiOutlineClose} from 'react-icons/ai';
+import { AiOutlineClose } from 'react-icons/ai';
 
 import IModal from './modal.interface';
 import styles from './modal.module.scss';
 
-const Modal: FC<IModal> = ({ isOpen, setIsOpen, children }) => {
+const Modal: FC<IModal> = ({
+    isOpen,
+    setIsOpen,
+    isClosable = false,
+    type = 'portal',
+    children
+}) => {
+    const isOpened = isOpen && isClosable;
+    const isPortal = type === 'portal';
+
     const handleClose = () => {
-        setIsOpen(false);
+        if (!!setIsOpen) {
+            setIsOpen(false);
+        }
     };
-    return isOpen ? (
-        ReactDOM.createPortal(
+
+    const renderModal = () => {
+        return (
             <div
                 className={cn(styles.modal, {
-                    [styles['open']]: isOpen
+                    [styles['open']]: isOpen,
+                    [styles['portal']]: isPortal,
+                    [styles['default']]: !isPortal
                 })}
                 onClick={(e) => {
                     if (e.target !== e.currentTarget) return;
@@ -24,14 +38,20 @@ const Modal: FC<IModal> = ({ isOpen, setIsOpen, children }) => {
                 <div className={styles.container}>
                     <div className={cn(styles.content, {})}>{children}</div>
 
-                    {isOpen && (
+                    {isOpened && (
                         <div className={styles.backdrop}>
                             <AiOutlineClose size={'20px'} onClick={handleClose} />
                         </div>
                     )}
                 </div>
-            </div>,
-            document.body
+            </div>
+        );
+    };
+    return isOpen ? (
+        type === 'portal' ? (
+            ReactDOM.createPortal(renderModal(), document.body)
+        ) : (
+            renderModal()
         )
     ) : (
         <></>

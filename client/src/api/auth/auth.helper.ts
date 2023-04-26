@@ -1,28 +1,16 @@
-import Cookies from 'js-cookie';
+import { IAuthResponse } from '@/api/auth/auth.types';
 
-export interface IAuthResponse {
-    accessToken: string;
-    refreshToken: string;
-    user: {
-        email: string;
-        id: string;
-        isActivated: boolean;
-    };
-}
 
-export interface IAuthRequest {
-    password:string;
-    email:string;
-}
-
-const saveTokenToStorage = (token: IAuthResponse['accessToken']) => {
-    Cookies.set('token', token);
+const saveTokenToStorage = (token: string) => {
+    localStorage.setItem('token', token);
 };
 
 export const removeTokenFromStorage = () => {
-    Cookies.remove('token');
+    localStorage.removeItem('token');
 };
 export const saveToStorage = (data: IAuthResponse) => {
     saveTokenToStorage(data.accessToken);
-    localStorage.setItem('user', JSON.stringify({ ...data.user }));
+    localStorage.setItem('user', JSON.stringify({...data.user}));
 };
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF5bGVzMTExM0BnbWFpbC5jb20iLCJpZCI6IjY0NDhjMmViM2IwOWZiNmQ0ZTIyYmQwNCIsImlzQWN0aXZhdGVkIjpmYWxzZSwiaWF0IjoxNjgyNDkwMDkyLCJleHAiOjE2ODI0OTA5OTJ9.zGvMAxgDyHzUuPv742zfWYGiwXWQzfgJRkOuSrvLW74
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF5bGVzMTExM0BnbWFpbC5jb20iLCJpZCI6IjY0NDhjMmViM2IwOWZiNmQ0ZTIyYmQwNCIsImlzQWN0aXZhdGVkIjpmYWxzZSwiaWF0IjoxNjgyNDkwMDkyLCJleHAiOjE2ODUwODIwOTJ9.7EKKzxnW7CURKVvmhFYk5t4qomCdmWIj8_TUOOCf_mU

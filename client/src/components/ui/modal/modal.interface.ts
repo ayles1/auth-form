@@ -1,7 +1,10 @@
-import {Dispatch, ReactNode, SetStateAction} from 'react';
+import { Dispatch, ReactNode, SetStateAction } from 'react';
+
 
 export default interface IModal {
     isOpen: boolean;
-    setIsOpen: Dispatch<SetStateAction<boolean>>;
+    isClosable?: boolean;
+    setIsOpen?: Dispatch<SetStateAction<boolean>>;
+    type?: 'portal' | 'default';
     children: ReactNode;
 }

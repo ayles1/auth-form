@@ -1,7 +1,6 @@
-import {Body, Controller, HttpCode, Param, Put, UsePipes, ValidationPipe} from "@nestjs/common";
+import {Body, Controller, Get, HttpCode, Param, Put, UsePipes, ValidationPipe} from "@nestjs/common";
 import {UserService} from "./user.service";
 import {UserDto} from "./user.dto";
-import {Auth} from "../auth/decorators/auth.decorator";
 import {CurrentUser} from "./user.decorator";
 import {Types} from "mongoose";
 
@@ -11,17 +10,17 @@ export class UserController {
     }
 
 
-    // @HttpCode(200)
-    // @Get("profile")
+    @HttpCode(200)
+    @Get("profile")
     // @Auth()
-    // async getProfile(@CurrentUser("_id") _id: Types.ObjectId) {
-    //     return this.userService.getUserProfile(_id);
-    // }
+    async getProfile(@CurrentUser("_id") _id: Types.ObjectId) {
+        return this.userService.getById(_id);
+    }
 
     @UsePipes(new ValidationPipe())
     @HttpCode(200)
     @Put("profile")
-    @Auth()
+    // @Auth()
     async updateProfile(@CurrentUser("_id") _id: Types.ObjectId, @Body() dto: UserDto) {
         return this.userService.updateProfile(_id, dto);
     }
@@ -29,10 +28,8 @@ export class UserController {
     @UsePipes(new ValidationPipe())
     @HttpCode(200)
     @Put(":id")
-    @Auth()
+    // @Auth()
     async updateUser(@Param("id") _id: Types.ObjectId, @Body() dto: UserDto) {
         return this.userService.updateProfile(_id, dto);
     }
-
-
 }

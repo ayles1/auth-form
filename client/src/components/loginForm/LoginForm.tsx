@@ -1,11 +1,13 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 
 import AuthForm from '@/components/authForm/AuthForm';
+
+import { useLoginMutation } from '@/api/auth/authApi';
 
 const LoginForm: FC<any> = () => {
     return (
         <>
-            <AuthForm />
+            <AuthForm type={'login'} useMutationHook={useLoginMutation} />
         </>
     );
 };

@@ -1,19 +1,22 @@
-import {AppRoutes} from '@/types';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import { AppRoutes } from '@/types';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import ActivationPage from '@/pages/ActivationPage';
 import Home from '@/pages/Home';
 import LoginPage from '@/pages/LoginPage';
 import RegisterPage from '@/pages/RegisterPage';
 import UploadPage from '@/pages/UploadPage';
 
+import Activation from '@/components/activation/Activation';
 import ErrorNotFound from '@/components/error/ErrorNotFound';
 import Layout from '@/components/layout/Layout';
 import AppPage from '@/components/page/AppPage';
 import PrivatePage from '@/components/private/PrivatePage';
 
+
+
 import '@/styles/global.scss';
 import '@/styles/reset.scss';
-import ActivationPage from "@/pages/ActivationPage";
 
 
 function App() {
@@ -35,23 +38,28 @@ function App() {
                     <Route
                         path={AppRoutes.register}
                         element={
-                            <AppPage title={'Sign up'}>
+                            <AppPage shouldRedirectIfAuth title={'Sign up'}>
                                 <RegisterPage/>
                             </AppPage>
                         }
-                    >
-                        <Route path={AppRoutes.activate}
-                               element={
-                                   <AppPage title={'Account activation'}>
-                                       <ActivationPage/>
-                                   </AppPage>
-                               }/>
-                    </Route>
+                    />
 
+                    <Route path={AppRoutes.activate}
+                           element={
+                               <AppPage title={'Account activation'}>
+                                   <ActivationPage/>
+                               </AppPage>
+                           }>
+                        <Route path={AppRoutes.activateRequest} element={
+                            <AppPage title={'Activating...'}>
+                                <Activation/>
+                            </AppPage>
+                        }/>
+                    </Route>
                     <Route
                         path={AppRoutes.login}
                         element={
-                            <AppPage title={'Login'}>
+                            <AppPage shouldRedirectIfAuth title={'Login'}>
                                 <LoginPage/>
                             </AppPage>
                         }

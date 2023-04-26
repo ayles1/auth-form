@@ -1,15 +1,16 @@
-import React, {FC, useState} from 'react';
+import React, { FC, useState } from 'react';
+import { Outlet } from 'react-router-dom';
 
 import RegisterForm from '@/components/registerForm/RegisterForm';
 import Modal from '@/components/ui/modal/Modal';
-import {Outlet} from "react-router-dom";
 
 const RegisterPage: FC<any> = () => {
     const [isOpen, setIsOpen] = useState(true);
+
     return (
         <>
-            <Outlet/>
-            <Modal setIsOpen={setIsOpen} isOpen={isOpen}>
+            <Outlet />
+            <Modal isOpen={isOpen} isClosable={false} type={'default'}>
                 <RegisterForm />
             </Modal>
         </>

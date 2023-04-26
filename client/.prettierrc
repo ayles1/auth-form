@@ -13,7 +13,7 @@
     "^@/pages/(.*$)",
     "^@/components/(.*$)",
     "^@/providers/(.*$)",
-    "^@/services/(.*$)",
+    "^@/api/(.*$)",
     "^@/store/(.*$)",
     "^@/types/(.*$)",
     "^@/hooks/(.*$)",

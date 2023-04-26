@@ -23,10 +23,18 @@ export class AuthService {
     async login(dto: AuthDto) {
 
         const user = await this.validateUser(dto)
+        if (!user.isActivated) {
+            throw new UnauthorizedException('Неверный пароль или неподтвержденный аккаунт')
+        }
+        const tokens = this.TokenService.generateTokens({email: user.email, id: user.id, isActivated: user.isActivated})
+        await this.TokenService.saveToken(user._id, tokens.refreshToken)
         return {
-            email: user.email,
-            _id: user._id,
-            token: 'bcn'
+            ...tokens,
+            user: {
+                email: user.email,
+                id: user._id,
+                isActivated: user.isActivated
+            }
         }
     }
 
@@ -51,10 +59,12 @@ export class AuthService {
         await this.TokenService.saveToken(user._id, tokens.refreshToken)
 
         return {
-            email: user.email,
-            _id: user._id,
-            isActivated: user.isActivated,
-            activationLink: user.activationLink,
+            user: {
+                id: user._id,
+                email: user.email,
+                isActivated: user.isActivated,
+
+            },
             ...tokens
         }
     }

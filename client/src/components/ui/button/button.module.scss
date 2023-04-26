@@ -1,15 +1,13 @@
 @import 'src/styles/vars';
 
 .button {
-  min-width: 100px;
-  padding: 10px 15px;
-  border-radius: 10px;
+  max-width: 200px;
 
   &.contained {
-    background: $light;
+    background: $light-blue;
   }
 
   &.outlined {
-    border: 2px solid $light;
+    border: 2px solid $light-blue;
   }
 }

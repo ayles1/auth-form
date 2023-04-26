@@ -15,8 +15,10 @@ export class AuthController {
     @UsePipes(new ValidationPipe())
     @HttpCode(200)
     @Post('login')
-    async login(@Body() dto: AuthDto) {
-        return this.authService.login(dto)
+    async login(@Body() dto: AuthDto, @Res() res: Response) {
+        const userData = await this.authService.login(dto)
+        res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+        return res.json(userData)
     }
 
     @UsePipes(new ValidationPipe())
@@ -43,7 +45,7 @@ export class AuthController {
     async activate(@Param('link') link: string, @Res() res: Response) {
         try {
             await this.authService.activate(link)
-            return res.redirect(this.configService.get('CLIENT_URL'))
+            return res.redirect(`${this.configService.get('CLIENT_URL')}/activate/${link}`)
 
         } catch (e) {
             console.log(e.message)
