@@ -3,11 +3,10 @@
   "printWidth": 100,
   "jsxSingleQuote": true,
   "singleQuote": true,
-  "tabWidth": 4,
+  "tabWidth": 2,
   "semi": true,
   "arrowParens": "always",
   "bracketSpacing": true,
-
   "importOrder": [
     "<THIRD_PARTY_MODULES>",
     "^@/pages/(.*$)",

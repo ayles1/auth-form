@@ -1,0 +1,69 @@
+@import "src/styles/mixins";
+@import "src/styles/vars";
+
+.modal {
+  &.portal {
+    @include flex-center;
+
+    position: fixed;
+    z-index: $layer-controls;
+    inset: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  &.default {
+    @include flex-center;
+
+    position: absolute;
+    inset: 0;
+    z-index: $layer-default;
+
+  }
+
+  .container {
+    position: relative;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+    animation: modal-rotate-slide 0.5s cubic-bezier(0.36, 0.45, 0.63, 0.53) both;
+    transform: rotateX(90deg) translate3d(0, -100%, 0);
+
+
+    .content {
+      width: 50vw;
+      min-width: 300px;
+      padding: 20px;
+      background-color: white;
+      border-radius: 12px;
+
+
+      &.open {
+        .content {
+          opacity: 1;
+          transform: none;
+        }
+      }
+    }
+
+    .backdrop {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 15px;
+      cursor: pointer;
+    }
+  }
+}
+
+@keyframes modal-rotate-slide {
+  from {
+    opacity: 0;
+    transform: rotateX(90deg) translate3d(0, -100%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+

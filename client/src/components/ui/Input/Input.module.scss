@@ -1,0 +1,52 @@
+@import "src/styles/mixins";
+@import 'src/styles/vars';
+
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 80px;
+  min-width: 200px;
+
+  .wrapper {
+    position: relative;
+
+    .label {
+      position: absolute;
+      z-index: $layer-controls;
+      left: 20px;
+      top: -6px;
+      padding: 0 3px;
+      background-color: white;
+
+      &.error {
+        color: $error;
+      }
+    }
+
+    .input {
+      max-height: 40px;
+      padding: 10px;
+      font-size: 15px;
+      border: 2px solid $light-blue;
+      border-radius: 10px;
+
+      &.error {
+        border: 2px solid $error;
+      }
+    }
+
+    .mask {
+      position: absolute;
+      right: 10%;
+      top: 30%;
+    }
+  }
+
+  .error_block {
+    margin: 7px 0 0 0;
+    color: $error;
+    text-align: center;
+  }
+}

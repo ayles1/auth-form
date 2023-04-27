@@ -1,12 +1,11 @@
 import useTypedSelector from './redux/useTypedSelector';
 
-
 export const useAuth = () => {
-    const { isAuth, email, id } = useTypedSelector((state) => state.user);
+  const { isAuth, email, id } = useTypedSelector((state) => state.user);
 
-    return {
-        isAuth: isAuth,
-        email,
-        id
-    };
+  return {
+    isAuth,
+    email,
+    id
+  };
 };

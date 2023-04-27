@@ -1,6 +1,13 @@
-
 $light-blue: #6066FF;
 $light-text: #FFF;
 $error: #ff0000;
 $success: rgb(129, 199, 132);
 $warn: rgb(255, 183, 77);
+
+// z-indexes
+
+$layer-default: 0;
+$layer-controls: 50;
+$layer-tooltip: 100;
+$layer-modal: 300;
+$layer-loader: 500;

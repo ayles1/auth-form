@@ -1,82 +1,84 @@
 import { AppRoutes } from '@/types';
+import { FC } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import ActivationPage from '@/pages/ActivationPage';
-import Home from '@/pages/Home';
-import LoginPage from '@/pages/LoginPage';
-import RegisterPage from '@/pages/RegisterPage';
-import UploadPage from '@/pages/UploadPage';
+import ActivationPage from '@/pages/ActivationPage/ActivationPage';
+import Home from '@/pages/Home/Home';
+import LoginPage from '@/pages/LoginPage/LoginPage';
+import RegisterPage from '@/pages/RegisterPage/RegisterPage';
+import UploadPage from '@/pages/UploadPage/UploadPage';
 
-import Activation from '@/components/activation/Activation';
-import ErrorNotFound from '@/components/error/ErrorNotFound';
-import Layout from '@/components/layout/Layout';
-import AppPage from '@/components/page/AppPage';
-import PrivatePage from '@/components/private/PrivatePage';
+import Activation from '@/components/Activation/Activation';
+import AppPage from '@/components/AppPage/AppPage';
+import ErrorNotFound from '@/components/ErrorNotFound/ErrorNotFound';
+import Layout from '@/components/Layout/Layout';
+import PrivatePage from '@/components/PrivatePage/PrivatePage';
 
+import '@/styles/index.scss';
 
+const App: FC = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path={AppRoutes.index} element={<Layout />}>
+          <Route
+            path={AppRoutes.index}
+            element={
+              <PrivatePage>
+                <AppPage title='Home page'>
+                  <Home />
+                </AppPage>
+              </PrivatePage>
+            }
+          />
 
-import '@/styles/global.scss';
-import '@/styles/reset.scss';
+          <Route
+            path={AppRoutes.register}
+            element={
+              <AppPage shouldRedirectIfAuth title='Sign up'>
+                <RegisterPage />
+              </AppPage>
+            }
+          />
 
-
-function App() {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path={AppRoutes.index} element={<Layout/>}>
-                    <Route
-                        path={AppRoutes.index}
-                        element={
-                            <PrivatePage>
-                                <AppPage title={'Home page'}>
-                                    <Home/>
-                                </AppPage>
-                            </PrivatePage>
-                        }
-                    />
-
-                    <Route
-                        path={AppRoutes.register}
-                        element={
-                            <AppPage shouldRedirectIfAuth title={'Sign up'}>
-                                <RegisterPage/>
-                            </AppPage>
-                        }
-                    />
-
-                    <Route path={AppRoutes.activate}
-                           element={
-                               <AppPage title={'Account activation'}>
-                                   <ActivationPage/>
-                               </AppPage>
-                           }>
-                        <Route path={AppRoutes.activateRequest} element={
-                            <AppPage title={'Activating...'}>
-                                <Activation/>
-                            </AppPage>
-                        }/>
-                    </Route>
-                    <Route
-                        path={AppRoutes.login}
-                        element={
-                            <AppPage shouldRedirectIfAuth title={'Login'}>
-                                <LoginPage/>
-                            </AppPage>
-                        }
-                    />
-                    <Route path={AppRoutes.upload} element={<UploadPage/>}/>
-                    <Route
-                        path={AppRoutes.error}
-                        element={
-                            <AppPage title={'Error'}>
-                                <ErrorNotFound/>
-                            </AppPage>
-                        }
-                    />
-                </Route>
-            </Routes>
-        </BrowserRouter>
-    );
-}
+          <Route
+            path={AppRoutes.activate}
+            element={
+              <AppPage title='Account activation'>
+                <ActivationPage />
+              </AppPage>
+            }
+          >
+            <Route
+              path={AppRoutes.activateRequest}
+              element={
+                <AppPage title='Activating...'>
+                  <Activation />
+                </AppPage>
+              }
+            />
+          </Route>
+          <Route
+            path={AppRoutes.login}
+            element={
+              <AppPage shouldRedirectIfAuth title='Login'>
+                <LoginPage />
+              </AppPage>
+            }
+          />
+          <Route path={AppRoutes.upload} element={<UploadPage />} />
+          <Route
+            path={AppRoutes.error}
+            element={
+              <AppPage title='Error'>
+                <ErrorNotFound />
+              </AppPage>
+            }
+          />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
 export default App;
