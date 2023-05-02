@@ -1,3 +1,3 @@
 export interface IFooter {
-    className?: string;
+  className?: string;
 }

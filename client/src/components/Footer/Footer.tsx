@@ -8,7 +8,7 @@ import styles from './Footer.module.scss';
 
 const Footer: FC<IFooter> = () => {
   return (
-    <footer className={styles.footer}>
+    <footer data-testid='footer' className={styles.footer}>
       <Button target='_blank' link='https://github.com/ayles1' className={styles.contacts}>
         <AiOutlineGithub size={30} />
         <div>My github</div>

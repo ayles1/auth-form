@@ -22,7 +22,7 @@ const Header: FC<IHeader> = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [logout, result] = useLogoutMutation();
+  const [logout] = useLogoutMutation();
   const { removeUser } = useAppDispatch(userActions);
 
   const isOnSignup = location.pathname === AppRoutes.register;
@@ -34,38 +34,32 @@ const Header: FC<IHeader> = () => {
     navigate(AppRoutes.login);
   };
   return (
-    <header className={styles.header}>
-      {isOnSignup && (
-        <>
+    <header data-testid='header' className={styles.header}>
+      <nav className={styles.navbar}>
+        {isOnSignup && (
           <Button className={styles.button} link={AppRoutes.login}>
             <AiOutlineLogin size={30} />
             <div>Login</div>
           </Button>
-        </>
-      )}
+        )}
 
-      {isOnLogin && (
-        <>
+        {isOnLogin && (
           <Button className={styles.button} link={AppRoutes.register}>
             <AiOutlineLogin size={30} />
             <div>Sign up</div>
           </Button>
-        </>
-      )}
+        )}
 
-      {isAuth && (
-        <>
-          <UserBar />
-          <Button
-            className={styles.button}
-            // link={AppRoutes.register}
-            onClick={handleClick}
-          >
-            <AiOutlineClose />
-            <div>Logout</div>
-          </Button>
-        </>
-      )}
+        {isAuth && (
+          <>
+            <UserBar className={styles.button} />
+            <Button className={styles.button} onClick={handleClick}>
+              <AiOutlineClose size={30} />
+              <div>Logout</div>
+            </Button>
+          </>
+        )}
+      </nav>
     </header>
   );
 };

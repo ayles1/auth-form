@@ -1,7 +1,8 @@
 import { ReactNode } from 'react';
 
-
-export default interface IFormContent {
+interface IFormContent {
   className?: string;
   children: ReactNode;
 }
+
+export default IFormContent;

@@ -1,5 +1,18 @@
 # Authorization form
 
+## Client start :
+### `npm install`
+### `npm run dev`
+
+### [http://localhost:5173](http://localhost:5173)
+
+## Server : 
+### `npm install --force`
+### `npm start`
+
+### [http://localhost:5173](http://localhost:5173)
+
+---
 ## Stack :
 
 ### Frontend :

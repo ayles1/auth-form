@@ -14,10 +14,7 @@
   }
 
   &.default {
-    @include flex-center;
 
-    position: absolute;
-    inset: 0;
     z-index: $layer-default;
 
   }

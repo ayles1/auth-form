@@ -1,0 +1,125 @@
+{
+  "numTotalTestSuites": 6,
+  "numPassedTestSuites": 6,
+  "numFailedTestSuites": 0,
+  "numPendingTestSuites": 0,
+  "numTotalTests": 7,
+  "numPassedTests": 6,
+  "numFailedTests": 1,
+  "numPendingTests": 0,
+  "numTodoTests": 0,
+  "startTime": 1682848188433,
+  "success": false,
+  "testResults": [
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "Auth Form"
+          ],
+          "fullName": " Auth Form Should be in login page",
+          "status": "passed",
+          "title": "Should be in login page",
+          "duration": 1259,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "Auth Form"
+          ],
+          "fullName": " Auth Form Should be in main if auth",
+          "status": "failed",
+          "title": "Should be in main if auth",
+          "duration": 206,
+          "failureMessages": [
+            "expected \"getItem\" to be called with arguments: [ 'token' ]\u001b[90m\n\nReceived: \n\u001b[39m\u001b[90m\n\nNumber of calls: \u001b[1m0\u001b[22m\n\u001b[39m"
+          ],
+          "location": {
+            "line": 20,
+            "column": 17
+          }
+        }
+      ],
+      "startTime": 1682848229213,
+      "endTime": 1682848230678,
+      "status": "failed",
+      "message": "",
+      "name": "C:/Users/ayles/Desktop/code/auth/client/src/App.spec.tsx"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "Auth Form"
+          ],
+          "fullName": " Auth Form Should be in the document",
+          "status": "passed",
+          "title": "Should be in the document",
+          "duration": 1066,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "Auth Form"
+          ],
+          "fullName": " Auth Form Should be an error while incorrect password",
+          "status": "passed",
+          "title": "Should be an error while incorrect password",
+          "duration": 746,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1682848228138,
+      "endTime": 1682848229951,
+      "status": "passed",
+      "message": "",
+      "name": "C:/Users/ayles/Desktop/code/auth/client/src/components/AuthForm/AuthForm.spec.tsx"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "userSlice"
+          ],
+          "fullName": " userSlice Should return default state when passed an empty action",
+          "status": "passed",
+          "title": "Should return default state when passed an empty action",
+          "duration": 18,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "userSlice"
+          ],
+          "fullName": " userSlice Should set user with \"setUser\" action",
+          "status": "passed",
+          "title": "Should set user with \"setUser\" action",
+          "duration": 4,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "userSlice"
+          ],
+          "fullName": " userSlice Should log out user with \"logOut\" action",
+          "status": "passed",
+          "title": "Should log out user with \"logOut\" action",
+          "duration": 4,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1682848239677,
+      "endTime": 1682848239706,
+      "status": "passed",
+      "message": "",
+      "name": "C:/Users/ayles/Desktop/code/auth/client/src/store/slices/user/user.slice.spec.ts"
+    }
+  ]
+}

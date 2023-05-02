@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 import Footer from '@/components/Footer/Footer';
 import Header from '@/components/Header/Header';
+import PageContainer from '@/components/PageContainer/PageContainer';
 import Popup from '@/components/ui/Popup/Popup';
 
 import { useCheckAuthMutation } from '@/api/auth/authApi';
@@ -13,7 +14,7 @@ import useAppDispatch from '@/hooks/redux/useAppDispatch';
 import useTypedSelector from '@/hooks/redux/useTypedSelector';
 
 const Layout: FC = () => {
-  const [checkAuth, result] = useCheckAuthMutation();
+  const [checkAuth] = useCheckAuthMutation();
   const { setUser } = useAppDispatch(userActions);
   const { message, type, isOpen, position, variant, statusCode } = useTypedSelector(
     (state) => state.popup
@@ -46,7 +47,9 @@ const Layout: FC = () => {
         />
       )}
       <Header />
-      <Outlet />
+      <PageContainer>
+        <Outlet />
+      </PageContainer>
       <Footer />
     </>
   );

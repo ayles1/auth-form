@@ -1,6 +1,5 @@
 import { AxiosRequestConfig } from 'axios';
 
-
 export interface ILogOutResponse {
   token: string;
 }

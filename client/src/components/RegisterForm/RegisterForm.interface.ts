@@ -1,1 +1,4 @@
-export default interface IRegisterForm {}
+interface IRegisterForm {
+  className?: string;
+}
+export default IRegisterForm;

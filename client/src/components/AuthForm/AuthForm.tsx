@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '@/components/ui/Button/Button';
 import FormContent from '@/components/ui/Form/FormContent';
 import Input from '@/components/ui/Input/Input';
+import Loader from '@/components/ui/Loader/Loader';
 
 import { popupActions } from '@/store/slices/popup/popup.slice';
 import { userActions } from '@/store/slices/user/user.slice';
@@ -26,7 +27,6 @@ const AuthForm: FC<IAuthForm> = ({ type, useMutationHook }) => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors }
   } = useForm<InputFields>({
     mode: 'onChange',
@@ -37,9 +37,14 @@ const AuthForm: FC<IAuthForm> = ({ type, useMutationHook }) => {
 
   useEffect(() => {
     if (result.isError) {
-      if ('data' in result.error) {
+      if (
+        'data' in result.error &&
+        typeof result.error.data === 'object' &&
+        result.error.data
+        // result.error.data
+      ) {
         setPopup({
-          message: (result.error.data as any).message,
+          message: result.error.data.message,
           type: 'error',
           statusCode: result.error.status,
           position: 'top-left'
@@ -75,31 +80,32 @@ const AuthForm: FC<IAuthForm> = ({ type, useMutationHook }) => {
     }
   };
   return (
-    <>
-      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <FormContent className={styles.container}>
-          <h1 className={styles['form-title']}>{isLogin ? 'Login' : 'Sign up'}</h1>
-          <Input
-            type='email'
-            label='Email'
-            error={errors.email?.message}
-            {...register('email')}
-            className={styles.input}
-          />
-          <Input
-            type='password'
-            label='Password'
-            error={errors.password?.message}
-            {...register('password')}
-            className={styles.input}
-          />
-          {result.isLoading && <div>Loading...</div>}
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <FormContent className={styles.container}>
+        <h1 className={styles['form-title']}>{isLogin ? 'Login' : 'Sign up'}</h1>
+        <Input
+          type='email'
+          label='Email'
+          error={errors.email?.message}
+          {...register('email')}
+          className={styles.input}
+        />
+        <Input
+          type='password'
+          label='Password'
+          error={errors.password?.message}
+          {...register('password')}
+          className={styles.input}
+        />
+        {result.isLoading ? (
+          <Loader />
+        ) : (
           <Button className={styles.button} variant='contained'>
             {isLogin ? 'Login' : 'Sign up'}
           </Button>
-        </FormContent>
-      </form>
-    </>
+        )}
+      </FormContent>
+    </form>
   );
 };
 

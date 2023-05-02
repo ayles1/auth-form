@@ -5,11 +5,9 @@ import Modal from '@/components/ui/Modal/Modal';
 
 const LoginPage: FC = () => {
   return (
-    <>
-      <Modal isOpen={true} isClosable={false} type='default'>
-        <LoginForm />
-      </Modal>
-    </>
+    <Modal isOpen={true} isClosable={false} type='default'>
+      <LoginForm />
+    </Modal>
   );
 };
 

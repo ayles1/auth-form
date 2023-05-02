@@ -1,11 +1,11 @@
-import {JwtService} from "@nestjs/jwt";
-import {Injectable} from "@nestjs/common";
-import {ConfigService} from "@nestjs/config";
-import {InjectModel} from "nestjs-typegoose";
-import {ModelType} from "@typegoose/typegoose/lib/types";
-import {TokenModel} from "../token.model";
-import {Types} from "mongoose";
-import {UserModel} from "../../user/user.model";
+import { JwtService } from '@nestjs/jwt';
+import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { InjectModel } from 'nestjs-typegoose';
+import { ModelType } from '@typegoose/typegoose/lib/types';
+import { TokenModel } from '../token.model';
+import { Types } from 'mongoose';
+import { UserModel } from '../../user/user.model';
 
 @Injectable()
 export class TokenService {
@@ -54,6 +54,7 @@ export class TokenService {
             return userData
         }
         catch(e){
+          console.log('catched acc token')
             return null
 
         }

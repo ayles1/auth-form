@@ -17,7 +17,7 @@ const Modal: FC<IModal> = ({
   const isPortal = type === 'portal';
 
   const handleClose = () => {
-    if (!!setIsOpen) {
+    if (setIsOpen) {
       setIsOpen(false);
     }
   };
@@ -47,15 +47,11 @@ const Modal: FC<IModal> = ({
       </div>
     );
   };
-  return isOpen ? (
-    type === 'portal' ? (
-      ReactDOM.createPortal(renderModal(), document.body)
-    ) : (
-      renderModal()
-    )
-  ) : (
-    <></>
-  );
+  return isOpen
+    ? type === 'portal'
+      ? ReactDOM.createPortal(renderModal(), document.body)
+      : renderModal()
+    : null;
 };
 
 export default Modal;

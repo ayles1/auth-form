@@ -1,13 +1,13 @@
-import {BadRequestException, Inject, Injectable, UnauthorizedException} from '@nestjs/common'
-import {InjectModel} from 'nestjs-typegoose'
-import {UserModel} from '../../user/user.model'
-import {AuthDto} from '../auth.dto'
-import {ModelType} from '@typegoose/typegoose/lib/types'
-import {compare, genSalt, hash} from 'bcryptjs'
-import {MailService} from "./mail.service";
-import {TokenService} from "./token.service";
-import {ConfigService} from "@nestjs/config";
-import {JwtService} from "@nestjs/jwt";
+import { BadRequestException, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import { InjectModel } from 'nestjs-typegoose';
+import { UserModel } from '../../user/user.model';
+import { AuthDto } from '../auth.dto';
+import { ModelType } from '@typegoose/typegoose/lib/types';
+import { compare, genSalt, hash } from 'bcryptjs';
+import { MailService } from './mail.service';
+import { TokenService } from './token.service';
+import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
@@ -40,8 +40,10 @@ export class AuthService {
 
     async register(dto: AuthDto) {
         const oldUser = await this.userModel.findOne({email: dto.email})
-        if (oldUser)
+        if (oldUser){
             throw new BadRequestException('User with this email is already exist')
+            console.log('user already exist')
+        }
 
         const salt = await genSalt(10)
         const activationLink = this._generateRandomString(10)
@@ -98,6 +100,7 @@ export class AuthService {
         const userData = this.TokenService.validateRefreshToken(refreshToken)
         const tokenFromDb = await this.TokenService.findToken(refreshToken)
         if (!userData || !tokenFromDb) {
+            console.log('no token')
             throw new UnauthorizedException('')
         }
 

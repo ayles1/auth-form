@@ -2,10 +2,6 @@
 @import "src/styles/vars";
 
 .container {
-  @include flex-center(column);
-
-  position: absolute;
-  inset: 0;
   gap: 15px;
 
   h1 {

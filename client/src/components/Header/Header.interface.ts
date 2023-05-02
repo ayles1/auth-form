@@ -1,3 +1,3 @@
 export interface IHeader {
-    className?: string;
+  className?: string;
 }

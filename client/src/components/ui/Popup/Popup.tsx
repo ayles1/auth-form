@@ -47,32 +47,32 @@ const Popup = <T extends 'success' | 'error' | 'warn'>(props: IPopup<T>) => {
   const topStyle = { width: `${loadingPercentage}%` };
   const rightStyle = { height: `${loadingPercentage}%` };
   const bottomStyle = { width: `${loadingPercentage}%` };
+
   const leftStyle = { height: `${loadingPercentage}%` };
 
-  return isOpen
-    ? createPortal(
-        <>
-          <div className={cn(styles.popup, styles[position], styles[type], styles[variant])}>
-            <div className={styles.wrapper}>
-              <div className={styles.container}>
-                <div>
-                  <div className={styles.status}>Status - {statusCode}</div>
-                  <div className={styles.message}>{message}</div>
-                </div>
-                <div className={styles.backdrop}>
-                  <AiOutlineClose size='20px' onClick={() => toggleOpen(false)} />
-                </div>
-              </div>
-              <div className={styles.top} style={topStyle} />
-              <div className={styles.right} style={rightStyle} />
-              <div className={styles.bottom} style={bottomStyle} />
-              <div className={styles.left} style={leftStyle} />
+  if (isOpen)
+    return createPortal(
+      <div className={cn(styles.popup, styles[position], styles[type], styles[variant])}>
+        <div className={styles.wrapper}>
+          <div className={styles.container}>
+            <div>
+              <div className={styles.status}>Status - {statusCode}</div>
+              <div className={styles.message}>{message}</div>
+            </div>
+
+            <div className={styles.backdrop}>
+              <AiOutlineClose size='20px' onClick={() => toggleOpen(false)} />
             </div>
           </div>
-        </>,
-        document.body
-      )
-    : null;
+          <div className={styles.top} style={topStyle} />
+          <div className={styles.right} style={rightStyle} />
+          <div className={styles.bottom} style={bottomStyle} />
+          <div className={styles.left} style={leftStyle} />
+        </div>
+      </div>,
+      document.body
+    );
+  return null;
 };
 
 export default Popup;

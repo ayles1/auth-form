@@ -1,8 +1,6 @@
 import { AppRoutes } from '@/types';
 import React, { FC, useEffect } from 'react';
 
-
-
 import Button from '@/components/ui/Button/Button';
 
 import { userActions } from '@/store/slices/user/user.slice';

@@ -1,9 +1,9 @@
-import {Body, Controller, Get, HttpCode, Param, Post, Res, UsePipes, ValidationPipe} from '@nestjs/common'
-import {AuthService} from './services/auth.service'
-import {AuthDto} from './auth.dto'
-import {Response} from "express";
-import {ConfigService} from "@nestjs/config";
-import {Cookies} from "./decorators/cookies.decorator";
+import { Body, Controller, Get, HttpCode, Param, Post, Res, UsePipes, ValidationPipe } from '@nestjs/common';
+import { AuthService } from './services/auth.service';
+import { AuthDto } from './auth.dto';
+import { Response } from 'express';
+import { ConfigService } from '@nestjs/config';
+import { Cookies } from './decorators/cookies.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -19,6 +19,11 @@ export class AuthController {
         const userData = await this.authService.login(dto)
         res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
         return res.json(userData)
+    }
+
+    @Post('hello')
+    sayHi(){
+        console.log('hello world')
     }
 
     @UsePipes(new ValidationPipe())

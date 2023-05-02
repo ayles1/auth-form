@@ -3,6 +3,7 @@
 .button {
   max-width: 200px;
 
+
   &.contained {
     background-color: $light-blue;
   }
@@ -10,4 +11,8 @@
   &.outlined {
     border: 2px solid $light-blue;
   }
+}
+.link_button{
+  display:block;
+  font-family: inherit;
 }

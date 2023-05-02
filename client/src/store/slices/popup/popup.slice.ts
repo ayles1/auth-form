@@ -1,6 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-
 export interface IPopup {
   isOpen: boolean;
   message: string;
@@ -37,6 +36,7 @@ const popupSlice = createSlice({
     },
     clearUser(state) {
       state = initialState;
+      return state;
     }
   }
 });

@@ -1,12 +1,15 @@
 import { axiosWithAuth } from '@/api';
 import { BaseQueryFn, createApi } from '@reduxjs/toolkit/query/react';
-import { AxiosError, AxiosResponse } from 'axios';
-
-
+import { AxiosError } from 'axios';
 
 import { removeTokenFromStorage, saveToStorage } from '@/api/auth/auth.helper';
-import { BaseQueryArgs, IAuthRequest, IAuthResponse, ILogOutResponse, IResponseError } from '@/api/auth/types';
-
+import {
+  BaseQueryArgs,
+  IAuthRequest,
+  IAuthResponse,
+  ILogOutResponse,
+  IResponseError
+} from '@/api/auth/types';
 
 const axiosBaseQuery = <T>({
   baseUrl = ''
@@ -17,13 +20,12 @@ const axiosBaseQuery = <T>({
 > => {
   return async ({ url, method, headers, body }) => {
     try {
-      const result = await axiosWithAuth<T>({
+      return await axiosWithAuth<T>({
         url: baseUrl + url,
         method,
         headers,
         data: body
       });
-      return result;
     } catch (axiosError) {
       const err = axiosError as AxiosError<T>;
       return {
@@ -39,7 +41,9 @@ const axiosBaseQuery = <T>({
 export const AuthApi = createApi({
   reducerPath: 'AuthApi',
   refetchOnMountOrArgChange: false,
-  baseQuery: axiosBaseQuery<unknown>({ baseUrl: 'http://localhost:4000/api' }),
+  baseQuery: axiosBaseQuery<IAuthResponse & ILogOutResponse>({
+    baseUrl: 'http://localhost:4000/api'
+  }),
 
   endpoints: (builder) => ({
     login: builder.mutation<IAuthResponse, IAuthRequest>({
@@ -64,12 +68,12 @@ export const AuthApi = createApi({
         return response;
       }
     }),
-    logout: builder.mutation<AxiosResponse<ILogOutResponse>, null>({
+    logout: builder.mutation<ILogOutResponse, null>({
       query: () => ({
         url: '/auth/logout',
         method: 'POST'
       }),
-      transformResponse: (response: AxiosResponse<ILogOutResponse>) => {
+      transformResponse: (response: ILogOutResponse) => {
         removeTokenFromStorage();
         return response;
       }

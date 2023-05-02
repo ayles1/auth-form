@@ -2,10 +2,7 @@ import { AppRoutes } from '@/types';
 import React, { FC, PropsWithChildren, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
-
 import { useAuth } from '@/hooks/useAuth';
-
 
 const PrivatePage: FC<PropsWithChildren> = ({ children }) => {
   const { isAuth } = useAuth();

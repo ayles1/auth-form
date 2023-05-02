@@ -1,6 +1,5 @@
 import { MouseEventHandler, ReactNode } from 'react';
 
-
 export interface IButton {
   className?: string;
   children?: ReactNode;
